@@ -3,31 +3,31 @@ name: Build Android APK
 on:
   push:
     branches:
-      - main  # atau ganti ke 'master' jika itu nama branch-mu
+      - main
 
 jobs:
   build:
-    name: Build Debug APK
+    name: Build APK
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    - name: Set up JDK
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: '17'  # Pastikan sesuai versi Gradle kamu
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x ./gradlew
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
 
-    - name: Build APK
-      run: ./gradlew assembleDebug
+      - name: Build APK
+        run: ./gradlew assembleDebug
 
-    - name: Upload APK Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: accessibility-bridge-apk
-        path: app/build/outputs/apk/debug/*.apk
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: accessibility-bridge-apk
+          path: app/build/outputs/apk/debug/*.apk
